@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/msoap/mac-photos-sync/internal/catalog"
-	"github.com/msoap/mac-photos-sync/internal/filesystem"
-	"github.com/msoap/mac-photos-sync/internal/model"
+	"github.com/msoap/mac-photos-sync/catalog"
+	"github.com/msoap/mac-photos-sync/filesystem"
+	"github.com/msoap/mac-photos-sync/model"
 )
 
 func TestPathAndSanitize(test *testing.T) {

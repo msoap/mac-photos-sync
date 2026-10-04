@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/msoap/mac-photos-sync/internal/filesystem"
+	"github.com/msoap/mac-photos-sync/filesystem"
 )
 
 func CheckDevice(root string, plan Plan) error {
@@ -178,6 +178,7 @@ func prune(root string) error {
 	}
 	return nil
 }
+
 func validYear(year string) bool {
 	if len(year) != 4 {
 		return false

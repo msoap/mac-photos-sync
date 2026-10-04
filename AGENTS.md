@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-`main.go` provides the `mac-photos-sync` CLI. Implementation packages live under `internal/`: `photosdb` reads the Photos database, `model` holds shared types, `metadata` handles file metadata, `sync` plans and runs synchronization, and `catalog` and `filesystem` manage destination state and files. Keep package tests beside their source in `*_test.go` files. `docs/` contains design notes; `plans/` records project plans. `test_data/from/` is a sample Photos library for investigation, while `test_data/to/` is a generated destination mirror. Do not commit generated output.
+`main.go` provides the `mac-photos-sync` CLI. Implementation packages live at the project root: `photosdb` reads the Photos database, `model` holds shared types, `metadata` handles file metadata, `sync` plans and runs synchronization, and `catalog` and `filesystem` manage destination state and files. Keep package tests beside their source in `*_test.go` files. `docs/` contains design notes; `plans/` records project plans. `test_data/from/` is a sample Photos library for investigation, while `test_data/to/` is a generated destination mirror. Do not commit generated output.
 
 ## Build, Test, and Development Commands
 

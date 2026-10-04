@@ -12,11 +12,11 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/msoap/mac-photos-sync/internal/catalog"
-	"github.com/msoap/mac-photos-sync/internal/filesystem"
-	"github.com/msoap/mac-photos-sync/internal/metadata"
-	"github.com/msoap/mac-photos-sync/internal/model"
-	"github.com/msoap/mac-photos-sync/internal/photosdb"
+	"github.com/msoap/mac-photos-sync/catalog"
+	"github.com/msoap/mac-photos-sync/filesystem"
+	"github.com/msoap/mac-photos-sync/metadata"
+	"github.com/msoap/mac-photos-sync/model"
+	"github.com/msoap/mac-photos-sync/photosdb"
 )
 
 type Options struct {
@@ -25,7 +25,10 @@ type Options struct {
 	Workers                    int
 	Output                     io.Writer
 }
-type Summary struct{ Assets, Resources, Existing, Created, Moved, Removed, Repaired, Conflicts, Missing, MetadataUpdated int }
+
+type Summary struct {
+	Assets, Resources, Existing, Created, Moved, Removed, Repaired, Conflicts, Missing, MetadataUpdated int
+}
 
 func Run(ctx context.Context, options Options) (Summary, error) {
 	var result Summary
@@ -168,6 +171,7 @@ func Run(ctx context.Context, options Options) (Summary, error) {
 	}
 	return result, nil
 }
+
 func canonicalPath(path string) (string, error) {
 	var missing []string
 	candidate := path
@@ -190,12 +194,14 @@ func canonicalPath(path string) (string, error) {
 		candidate = parent
 	}
 }
+
 func formatTo(to string) string {
 	if to != "" {
 		return " -> " + to
 	}
 	return ""
 }
+
 func summary(output io.Writer, result Summary, dry bool) {
 	mode := ""
 	if dry {

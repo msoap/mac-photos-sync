@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/msoap/mac-photos-sync/internal/filesystem"
+	"github.com/msoap/mac-photos-sync/filesystem"
 	_ "modernc.org/sqlite"
 )
 

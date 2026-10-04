@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/msoap/mac-photos-sync/internal/model"
+	"github.com/msoap/mac-photos-sync/model"
 	_ "modernc.org/sqlite"
 )
 

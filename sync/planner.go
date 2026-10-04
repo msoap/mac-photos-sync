@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/msoap/mac-photos-sync/internal/catalog"
-	"github.com/msoap/mac-photos-sync/internal/filesystem"
-	"github.com/msoap/mac-photos-sync/internal/model"
+	"github.com/msoap/mac-photos-sync/catalog"
+	"github.com/msoap/mac-photos-sync/filesystem"
+	"github.com/msoap/mac-photos-sync/model"
 )
 
 type Operation struct {
@@ -26,6 +26,7 @@ type Plan struct {
 func dayPath(t time.Time) string {
 	return filepath.Join(t.Format("2006"), t.Format("2006-01"), t.Format("2006-01-02"))
 }
+
 func sanitize(name string) string {
 	name = filepath.Base(strings.ReplaceAll(name, "\\", "/"))
 	name = strings.TrimSpace(name)
@@ -39,10 +40,12 @@ func sanitize(name string) string {
 		return char
 	}, name)
 }
+
 func suffix(name string, n int) string {
 	ext := filepath.Ext(name)
 	return strings.TrimSuffix(name, ext) + fmt.Sprintf("_%d", n) + ext
 }
+
 func isManagedLayout(rel string) bool {
 	parts := strings.Split(filepath.ToSlash(rel), "/")
 	if len(parts) != 4 && len(parts) != 5 {
@@ -57,6 +60,7 @@ func isManagedLayout(rel string) bool {
 	_, err := time.Parse("2006-01-02", parts[2])
 	return err == nil
 }
+
 func scanDestination(root string) (map[string]filesystem.Identity, error) {
 	out := make(map[string]filesystem.Identity)
 	if _, err := os.Stat(root); os.IsNotExist(err) {
@@ -247,6 +251,7 @@ func Build(root string, assets []model.Asset, old catalog.State) (Plan, error) {
 	sort.Strings(plan.Conflicts)
 	return plan, nil
 }
+
 func hasAdjusted(rs []model.Resource) bool {
 	for _, r := range rs {
 		if r.Type == "adjusted" {

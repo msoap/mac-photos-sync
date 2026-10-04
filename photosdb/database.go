@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/msoap/mac-photos-sync/internal/model"
+	"github.com/msoap/mac-photos-sync/model"
 	_ "modernc.org/sqlite"
 )
 
@@ -22,6 +22,7 @@ type Library struct {
 	tempDir       string
 	SchemaVersion int
 }
+
 type ScanResult struct {
 	Assets  []model.Asset
 	Missing []string
@@ -62,6 +63,7 @@ func Open(root string) (*Library, error) {
 	}
 	return &Library{Root: root, db: db, tempDir: tempDir, SchemaVersion: version}, nil
 }
+
 func (library *Library) Close() error {
 	err := library.db.Close()
 	cleanup := os.RemoveAll(library.tempDir)
@@ -344,9 +346,11 @@ func primaryType(asset model.Asset) string {
 	}
 	return "original"
 }
+
 func replaceExtension(name, ext string) string {
 	return strings.TrimSuffix(name, filepath.Ext(name)) + ext
 }
+
 func compatibleExtension(originalExt, renderExt string) bool {
 	originalExt = strings.ToLower(originalExt)
 	renderExt = strings.ToLower(renderExt)
@@ -355,6 +359,7 @@ func compatibleExtension(originalExt, renderExt string) bool {
 	}
 	return (originalExt == ".jpg" || originalExt == ".jpeg") && (renderExt == ".jpg" || renderExt == ".jpeg")
 }
+
 func matchSize(dir, pattern string, size int64) string {
 	paths, _ := filepath.Glob(filepath.Join(dir, pattern))
 	for _, path := range paths {

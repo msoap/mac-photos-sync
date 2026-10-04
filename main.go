@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"syscall"
 
-	syncer "github.com/msoap/mac-photos-sync/internal/sync"
+	syncer "github.com/msoap/mac-photos-sync/sync"
 )
 
 func main() {
@@ -34,7 +34,15 @@ func main() {
 	}
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
-	_, err = syncer.Run(ctx, syncer.Options{Library: *library, Destination: flag.Arg(0), DryRun: *dry, Verbose: *verbose, RebuildDB: *rebuild, Workers: *workers, Output: os.Stdout})
+	_, err = syncer.Run(ctx, syncer.Options{
+		Library:     *library,
+		Destination: flag.Arg(0),
+		DryRun:      *dry,
+		Verbose:     *verbose,
+		RebuildDB:   *rebuild,
+		Workers:     *workers,
+		Output:      os.Stdout,
+	})
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "mac-photos-sync:", err)
 		os.Exit(1)

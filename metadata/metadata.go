@@ -10,7 +10,7 @@ import (
 
 	"github.com/barasher/go-exiftool"
 	"github.com/bep/imagemeta"
-	"github.com/msoap/mac-photos-sync/internal/model"
+	"github.com/msoap/mac-photos-sync/model"
 )
 
 type MetadataReader interface {
@@ -23,6 +23,7 @@ type Reader struct {
 }
 
 func NewReader() *Reader { return &Reader{} }
+
 func (reader *Reader) Close() error {
 	reader.mu.Lock()
 	defer reader.mu.Unlock()
@@ -118,6 +119,7 @@ func readImage(path string) (*model.Metadata, error) {
 	metadata.Height = res.ImageConfig.Height
 	return metadata, nil
 }
+
 func mime(ext string) string {
 	switch ext {
 	case ".jpg", ".jpeg":
@@ -131,6 +133,7 @@ func mime(ext string) string {
 	}
 	return ""
 }
+
 func str(tags map[string]any, key string) string {
 	value, ok := tags[key]
 	if !ok {
@@ -138,7 +141,9 @@ func str(tags map[string]any, key string) string {
 	}
 	return fmt.Sprint(value)
 }
+
 func num(tags map[string]any, key string) int { var n int; fmt.Sscan(str(tags, key), &n); return n }
+
 func parseTime(timestamp string) time.Time {
 	for _, layout := range []string{"2006:01:02 15:04:05-07:00", "2006:01:02 15:04:05Z07:00", "2006:01:02 15:04:05", "2006-01-02T15:04:05Z07:00", "2006-01-02 15:04:05-07:00", "2006-01-02 15:04:05"} {
 		if t, err := time.Parse(layout, timestamp); err == nil {
