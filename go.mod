@@ -1,3 +1,3 @@
 module github.com/msoap/mac-photos-sync
 
-go 1.15
+go 1.27
